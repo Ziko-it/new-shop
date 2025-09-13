@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import { Heart } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import { useFavorites } from "../context/FavoritesContext"; // shu yerda context
 
 const products = [
   {
@@ -39,13 +41,7 @@ const products = [
 ];
 
 export default function Carousel() {
-  const [favorites, setFavorites] = useState([]);
-
-  const toggleFavorite = (id) => {
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id]
-    );
-  };
+  const { favorites, toggleFavorite } = useFavorites(); // umumiy context
 
   const settings = {
     dots: false,
@@ -63,13 +59,13 @@ export default function Carousel() {
           <div key={p.id} className="p-3">
             <div className="bg-white rounded-2xl shadow-md p-4 relative h-[364px] flex flex-col">
               <button
-                onClick={() => toggleFavorite(p.id)}
+                onClick={() => toggleFavorite(p)} // mahsulotni uzini yuboramiz
                 className="absolute top-3 right-3"
               >
                 <Heart
                   size={22}
                   className={`${
-                    favorites.includes(p.id)
+                    favorites.some((f) => f.id === p.id)
                       ? "fill-red-500 text-red-500"
                       : "text-gray-400"
                   }`}
@@ -89,7 +85,7 @@ export default function Carousel() {
               </div>
             </div>
 
-            <p className=" text-green-600 font-semibold text-lg">
+            <p className="text-green-600 font-semibold text-lg">
               {p.price} сум
             </p>
           </div>

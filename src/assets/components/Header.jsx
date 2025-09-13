@@ -1,19 +1,28 @@
 import { useState } from "react";
-import {
-  FaRegUser,
-  FaHeart,
-  FaShoppingCart,
-  FaClipboardList,
-} from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { useFavorites } from "../context/FavoritesContext";
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
   const [search, setSearch] = useState("");
+  const { favorites } = useFavorites();
+  const { cart } = useCart();
 
   return (
-    <header className="w-full shadow bg-white">
+    <header className="w-full bg-white">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div className="text-2xl font-bold text-gray-800">Vasit</div>
+        <Link to="/vasit">
+          <div className="text-2xl font-bold text-gray-800">Vasit</div>
+        </Link>
+
+        <Link
+          to="/button"
+          className="w-[114px] h-[44px] bg-indigo-50 text-indigo-500 rounded-[14px] flex items-center justify-center"
+        >
+          <img src="/icons/Vector1.svg" alt="" className="mr-2" />
+          Каталог
+        </Link>
 
         <div className="flex items-center w-1/2 border rounded-full overflow-hidden">
           <input
@@ -28,23 +37,54 @@ export default function Header() {
           </button>
         </div>
 
-        <div className="flex items-center gap-5 text-gray-700 text-sm">
-          <div className="flex flex-col items-center cursor-pointer">
-            <FaRegUser size={20} />
+        <div className="flex items-center gap-5 text-sm relative">
+          <Link
+            to="/login"
+            className="flex flex-col items-center cursor-pointer"
+          >
+            <img src="./icons/bivt.svg" alt="" />
             <span>Войти</span>
-          </div>
-          <div className="flex flex-col items-center cursor-pointer">
-            <FaClipboardList size={20} />
+          </Link>
+          <Link
+            to="/sign"
+            className="flex flex-col items-center cursor-pointer"
+          >
+            <img src="./icons/bivt.svg" alt="" />
+            <span>Регистрация</span>
+          </Link>
+          <Link
+            to="/buyurtma"
+            className="flex flex-col items-center cursor-pointer"
+          >
+            <img src="./icons/kalso (1).svg" alt="" />
             <span>Заказы</span>
-          </div>
-          <div className="flex flex-col items-center cursor-pointer">
-            <FaHeart size={20} />
+          </Link>
+
+          <Link
+            to="/favorites"
+            className="flex flex-col items-center cursor-pointer relative"
+          >
+            <img src="./icons/kalso (4).svg" alt="" />
             <span>Избранное</span>
-          </div>
-          <div className="flex flex-col items-center cursor-pointer">
-            <FaShoppingCart size={20} />
+            {favorites.length > 0 && (
+              <span className="absolute -top-1 right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {favorites.length}
+              </span>
+            )}
+          </Link>
+
+          <Link
+            to="/cart"
+            className="flex flex-col items-center cursor-pointer relative"
+          >
+            <img src="./icons/basket.svg" alt="" />
             <span>Корзина</span>
-          </div>
+            {cart.length > 0 && (
+              <span className="absolute -top-1 right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {cart.length}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
     </header>

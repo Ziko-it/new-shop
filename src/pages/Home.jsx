@@ -10,13 +10,12 @@ import Categories from "../assets/components/Categories";
 function Home() {
   return (
     <>
-      <Header />
       <div className=" text-center mt-5">
         <Categories />
       </div>
 
       <main className=" px-4">
-        <section className="bg-gray-100 p-8 rounded-lg mt-6 text-center ">
+        <section>
           <Carousel />
         </section>
         <section className="mt-8 ml-20">
@@ -34,7 +33,7 @@ function Home() {
             <div className="">
               <div className=" p-6 rounded-lg w-[338px] h-[216px] flex flex-col items-center justify-center">
                 <img
-                  src="/icons/Хозяйственные.svg"
+                  src="/icons/Хозяйственны.svg"
                   alt="Хозяйственные"
                   className="w-[186px] h-[186px] object-contain mb-2"
                 />

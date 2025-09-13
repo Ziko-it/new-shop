@@ -24,7 +24,7 @@ export default function Categories() {
   }, []);
 
   return (
-    <div className="text-center mt-5 flex flex-wrap gap-3 justify-center">
+    <div className="text-center mt-5 mb-4 flex flex-wrap gap-3 justify-center">
       {categories.length > 0 ? (
         categories.map((cat) => (
           <span key={cat.id} className=" rounded-lg  cursor-pointer">

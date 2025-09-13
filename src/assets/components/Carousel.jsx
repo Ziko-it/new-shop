@@ -1,41 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Carousel() {
-  const slides = [{ id: 1, img: "/icons/Hero.png" }];
+  const slides = [
+    { id: 1, img: "/icons/Hero section.png" },
+    { id: 2, img: "/icons/Hero section (1).png" },
+    { id: 3, img: "/icons/Hero section (2).png" },
+    { id: 4, img: "/icons/Hero section (3).png" },
+    { id: 5, img: "/icons/Hero section (4).png" },
+    { id: 6, img: "/icons/Hero section (5).png" },
+  ];
 
   const [current, setCurrent] = useState(0);
 
-  const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
+  // Avtomatik o'tishi uchun useEffect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 5000); // 5 soniya
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   return (
-    <div className="relative w-[1840px] h-[496px] flex items-center justify-center bg-gray-100 rounded-lg mx-auto overflow-hidden">
+    <div className="relative w-[1870px] h-[640px] rounded-lg mx-auto overflow-hidden">
       <img
         src={slides[current].img}
         alt={slides[current].text}
-        className="w-[1890px] h-[400px] object-contain"
+        className="w-full h-full object-cover transition-all duration-700"
       />
-      <div className="absolute bottom-6 text-4xl font-bold">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-3xl font-bold bg-black/40 px-6 py-2 rounded-lg">
         {slides[current].text}
       </div>
-
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow text-2xl"
-      >
-        ◀
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white p-4 rounded-full shadow text-2xl"
-      >
-        ▶
-      </button>
     </div>
   );
 }
